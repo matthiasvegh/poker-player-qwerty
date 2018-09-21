@@ -81,7 +81,11 @@ class Player:
                 print("Half-in rank delta 2")
             elif rank == 1:
                 my_bet = 1
-                print("Calling rank delta 1")
+                if bet_needed == 0:
+                    my_bet = game_state["minimum_raise"]
+                    print("Raising post-flop")
+                else:
+                    print("Calling rank delta 1")
             elif rank == 0:
                 my_bet = 0
                 print("Folding post-flop")

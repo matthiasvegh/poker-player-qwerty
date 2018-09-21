@@ -51,5 +51,6 @@
     "orbits":0,
     "dealer":0,
     "current_buy_in":0,
+    "minimum_raise": 240,
     "pot":0
 }
