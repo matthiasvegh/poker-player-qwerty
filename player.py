@@ -69,7 +69,7 @@ class Player:
                 my_bet = me["stack"]
             elif rank > 1:
                 my_bet = int(me["stack"] / 2)
-            elif rank > 0:
+            elif rank == 1:
                 my_bet = 1
             elif rank == 0:
                 my_bet = 0
@@ -165,7 +165,7 @@ class Player:
     def get_estimated_table_rank(self, game_state):
         if self.has_table_one_pair(game_state):
             return 1
-        if len(self.get_communal_cards()) == 5:
+        if len(self.get_communal_cards(game_state)) == 5:
             table_ranking = self.get_table_ranking(game_state)
         return 0
 
