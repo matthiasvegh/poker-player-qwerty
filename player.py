@@ -147,7 +147,7 @@ class Player:
         return max(values)
 
     def get_blind_bet(self, game_state):
-        return game_state["small_bind"]
+        return game_state["small_blind"]
 
     def get_estimated_table_rank(self, game_state):
         return 0
