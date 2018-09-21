@@ -55,6 +55,22 @@ class Player:
     def have_royal_flush(self, game_state):
         return False
 
+    def get_probability_of_hand(self, rank_id):
+
+        probabilities = {
+            0: 1/(1+0.995), # No pair
+            1: 1/(1+1.37),  # One pair
+            2: 1/(1+20),    # Two pairs
+            3: 1/(1+46.3),  # Three of a kind
+            4: 1/(1+254),   # Straight
+            5: 1/(1+508),   # Flush
+            6: 1/(1+693),   # Full House
+            7: 1/(1+4165),  # Four of a kind
+            8: 1/(1+72192) # Straight Flush
+        }
+
+        return probabilities[rank_id]
+
     def showdown(self, game_state):
         pass
 
