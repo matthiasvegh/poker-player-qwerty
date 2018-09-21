@@ -5,11 +5,19 @@ import json
 class Player:
     VERSION = "Default Python calling player"
 
-    def get_cards_ranking(self, game_state):
-        cards = self.get_my_hand(game_state)
+    def get_ranking(self, cards):
         response = requests.get('http://rainman.leanpoker.org/rank?cards=' + json.dumps(cards))
         print("Ranking: " + response.text)
         return json.loads(response.text)
+
+    def get_table_ranking(self, game_state):
+        cards = self.get_communal_cards(game_state)
+        return self.get_ranking(cards)
+
+
+    def get_cards_ranking(self, game_state):
+        cards = self.get_my_hand(game_state)
+        return self.get_ranking(cards)
 
 
     def log(self, game_state):
@@ -87,14 +95,19 @@ class Player:
     def get_communal_cards(self, game_state):
         return game_state["community_cards"]
 
-    def have_one_pair(self, game_state):
-        my_hand = self.get_my_hand(game_state)
+    def is_pair_among_cards(self, cards):
         ranks = [card["rank"] for card in my_hand]
         rank_counts = [ranks.count(rank) for rank in set(ranks)]
         if max(rank_counts) == 2:
             return True
 
-        return False
+    def have_one_pair(self, game_state):
+        my_hand = self.get_my_hand(game_state)
+        return self.is_pair_among_cards(my_hand)
+
+    def has_table_one_pair(self, game_state):
+        table_cards = self.get_communal_cards(game_state)
+        return self.is_pair_among_cards(table_cards)
 
     def have_royal_flush(self, game_state):
         return False
@@ -150,6 +163,10 @@ class Player:
         return 2 * game_state["small_blind"]
 
     def get_estimated_table_rank(self, game_state):
+        if self.has_table_one_pair(game_state):
+            return 1
+        if len(self.get_communal_cards()) == 5:
+            table_ranking = self.get_table_ranking(game_state)
         return 0
 
     def showdown(self, game_state):
