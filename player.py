@@ -39,7 +39,10 @@ class Player:
         bet_needed = current_buy_in - me["bet"]
 
         if len(self.get_communal_cards(game_state)) == 0:
-            if self.have_one_pair(game_state):
+            if self.have_one_pair(game_state) and \
+                    self.get_lowest_value_card(game_state) >= 10:
+                my_bet = bet_needed + 3 * self.get_blind_bet(game_state)
+            elif self.have_one_pair(game_state):
                 my_bet = bet_needed
             elif current_buy_in < me["stack"] * 0.4 and \
                     self.get_lowest_value_card(game_state) >= 10:
@@ -61,6 +64,9 @@ class Player:
                 my_bet = 0
             if my_bet < bet_needed and my_bet != 0:
                 my_bet = bet_needed
+
+
+        my_bet = min(me["stack"], my_bet)
 
         print("My bet: %d" % (my_bet))
 
@@ -136,6 +142,9 @@ class Player:
         values = [get_numeric_value_of_card(card)
                 for card in self.get_my_cards(game_state)]
         return max(values)
+
+    def get_blind_bet(self, game_state):
+        return game_state["small_bind"]
 
     def showdown(self, game_state):
         pass
