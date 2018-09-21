@@ -41,6 +41,12 @@ class Player:
         if len(self.get_communal_cards(game_state)) == 0:
             if self.have_one_pair(game_state):
                 my_bet = bet_needed
+            elif current_buy_in < me["stack"] * 0.4 and \
+                    self.get_lowest_value_card(game_state) >= 10:
+                my_bet = bet_needed
+            elif current_buy_in < me["stack"] * 0.2 and \
+                    self.get_highest_value_card(game_state) == 14:
+                my_bet = bet_needed
             elif current_buy_in < me["stack"] * 0.1:
                 my_bet = bet_needed
         else:
@@ -120,6 +126,16 @@ class Player:
                 "A": 14
             }
             return values[card["rank"]]
+
+    def get_lowest_value_card(self, game_state):
+        values = [get_numeric_value_of_card(card)
+                for card in self.get_my_cards(game_state)]
+        return min(values)
+
+    def get_highest_value_card(self, game_state):
+        values = [get_numeric_value_of_card(card)
+                for card in self.get_my_cards(game_state)]
+        return max(values)
 
     def showdown(self, game_state):
         pass
