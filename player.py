@@ -43,12 +43,12 @@ class Player:
             if self.have_one_pair(game_state):
                 my_bet = bet_needed
             elif current_buy_in < me["stack"] * 0.1:
-                my_bet = current_buy_in - me["bet"]
+                my_bet = bet_needed
         else:
             ranking = self.get_cards_ranking(game_state)
             if ranking["rank"] > 4:
                 my_bet = me["stack"]
-            if ranking["rank"] > 2:
+            elif ranking["rank"] > 2:
                 my_bet = int(me["stack"] / 2)
             if my_bet < bet_needed:
                 my_bet = bet_needed
