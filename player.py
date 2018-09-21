@@ -26,7 +26,7 @@ class Player:
         me = game_state["players"][game_state["in_action"]]
 
         self.log(game_state)
-        if have_one_pair(game_state):
+        if self.have_one_pair(game_state):
             print("have one pair")
 
         return current_buy_in - me["bet"]
