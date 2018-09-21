@@ -7,7 +7,6 @@ class Player:
 
     def get_cards_ranking(self, game_state):
         cards = self.get_my_hand(game_state)
-        cards += self.get_communal_cards(game_state)
         response = requests.get('http://rainman.leanpoker.org/rank?cards=' + json.dumps(cards))
         print("Ranking: " + response.text)
         return json.loads(response.text)
