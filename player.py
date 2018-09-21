@@ -49,16 +49,22 @@ class Player:
             if self.have_one_pair(game_state) and \
                     self.get_lowest_value_card(game_state) >= 10:
                 my_bet = bet_needed + 3 * self.get_blind_bet(game_state)
+                print('Raising pre-flop (high-pair)')
             elif self.have_one_pair(game_state):
                 my_bet = bet_needed
             elif current_buy_in < me["stack"] * 0.4 and \
                     self.get_lowest_value_card(game_state) >= 10:
                 my_bet = bet_needed
+                print('Calling pre-flop (high-cards)')
             elif current_buy_in < me["stack"] * 0.2 and \
                     self.get_highest_value_card(game_state) == 14:
                 my_bet = bet_needed
+                print('Calling pre-flop (high-card)')
             elif current_buy_in < me["stack"] * 0.1:
                 my_bet = bet_needed
+                print('Calling pre-flop (cheap)')
+            else:
+                print("Folding pre-flop")
         else:
             hand_rank = self.get_cards_ranking(game_state)["rank"]
             table_rank = self.get_estimated_table_rank(game_state)
@@ -66,15 +72,18 @@ class Player:
 
             if rank > 3:
                 my_bet = me["stack"]
+                print("All-in rank delta 4")
             elif rank > 1:
                 my_bet = int(me["stack"] / 2)
+                print("Half-in rank delta 2")
             elif rank == 1:
                 my_bet = 1
+                print("Calling rank delta 1")
             elif rank == 0:
                 my_bet = 0
+                print("Folding post-flop")
             if my_bet < bet_needed and my_bet != 0:
                 my_bet = bet_needed
-
 
         my_bet = min(me["stack"], my_bet)
 
