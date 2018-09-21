@@ -1,12 +1,17 @@
 from __future__ import print_function
-
-import sys
+import requests
+import json
 
 class Player:
     VERSION = "Default Python calling player"
 
-    def convertCardsToString(self, cards):
-        cardList = []
+    def get_cards_ranking(self, game_state):
+        cards = self.get_my_hand(game_state)
+        cards += self.get_communal_cards(game_state)
+        response = requests.get('http://rainman.leanpoker.org/rank?cards=' + json.dumps(cards))
+        print("Ranking: " + response.text)
+        return json.loads(response.text)
+
 
     def log(self, game_state):
         me = game_state["players"][game_state["in_action"]]
@@ -31,7 +36,17 @@ class Player:
             print("current probability: ", self.get_probability_of_hand(1))
 
 
-        return current_buy_in - me["bet"]
+        my_bet = 0
+
+        ranking = self.get_cards_ranking(game_state)
+        if len(self.get_communal_cards(game_state)) == 0:
+            current_buy_in - me["bet"]
+        elif ranking['rank'] > 0:
+            current_buy_in - me["bet"]
+
+        print("My bet: %d" % (my_bet))
+
+        return my_bet
 
     def get_my_hand(self, game_state):
         return self.get_my_cards(game_state) + \
