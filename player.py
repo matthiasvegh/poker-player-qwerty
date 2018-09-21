@@ -96,7 +96,7 @@ class Player:
         return game_state["community_cards"]
 
     def is_pair_among_cards(self, cards):
-        ranks = [card["rank"] for card in my_hand]
+        ranks = [card["rank"] for card in cards]
         rank_counts = [ranks.count(rank) for rank in set(ranks)]
         if max(rank_counts) == 2:
             return True
