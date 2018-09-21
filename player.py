@@ -6,8 +6,6 @@ class Player:
     VERSION = "Default Python calling player"
 
     def betRequest(self, game_state):
-        print('hello world')
-        print('hello world error', file=sys.stderr)
         current_buy_in = game_state["current_buy_in"]
         me = game_state["players"][game_state["in_action"]]
 
