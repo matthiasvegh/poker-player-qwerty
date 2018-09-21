@@ -137,12 +137,12 @@ class Player:
             return values[card["rank"]]
 
     def get_lowest_value_card(self, game_state):
-        values = [get_numeric_value_of_card(card)
+        values = [self.get_numeric_value_of_card(card)
                 for card in self.get_my_cards(game_state)]
         return min(values)
 
     def get_highest_value_card(self, game_state):
-        values = [get_numeric_value_of_card(card)
+        values = [self.get_numeric_value_of_card(card)
                 for card in self.get_my_cards(game_state)]
         return max(values)
 
