@@ -50,7 +50,7 @@ class Player:
                 my_bet = me["stack"]
             elif ranking["rank"] > 2:
                 my_bet = int(me["stack"] / 2)
-            if my_bet < bet_needed:
+            if my_bet < bet_needed and my_bet != 0:
                 my_bet = bet_needed
 
         print("My bet: %d" % (my_bet))
