@@ -53,14 +53,17 @@ class Player:
             elif current_buy_in < me["stack"] * 0.1:
                 my_bet = bet_needed
         else:
-            ranking = self.get_cards_ranking(game_state)
-            if ranking["rank"] > 4:
+            hand_rank = self.get_cards_ranking(game_state)["rank"]
+            table_rank = self.get_estimated_table_rank(game_state)
+            rank = hand_rank - table_rank
+
+            if rank > 4:
                 my_bet = me["stack"]
-            elif ranking["rank"] > 2:
+            elif rank > 2:
                 my_bet = int(me["stack"] / 2)
-            elif ranking["rank"] > 0:
+            elif rank > 0:
                 my_bet = 1
-            elif ranking["rank"] == 0:
+            elif rank == 0:
                 my_bet = 0
             if my_bet < bet_needed and my_bet != 0:
                 my_bet = bet_needed
@@ -145,6 +148,9 @@ class Player:
 
     def get_blind_bet(self, game_state):
         return game_state["small_bind"]
+
+    def get_estimated_table_rank(self, game_state):
+        return 0
 
     def showdown(self, game_state):
         pass
