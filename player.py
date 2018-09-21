@@ -46,6 +46,9 @@ class Player:
     def have_one_pair(self, game_state):
         my_hand = self.get_my_hand(game_state)
         ranks = [card["rank"] for card in my_hand]
+        rank_counts = [ranks.count(rank) for rank in set(ranks)]
+        if max(rank_counts) == 2:
+            return True
 
         return False
 
