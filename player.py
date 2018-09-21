@@ -63,6 +63,9 @@ class Player:
             elif current_buy_in < me["stack"] * 0.1:
                 my_bet = bet_needed
                 print('Calling pre-flop (cheap)')
+            elif 3 * self.get_blind_bet(game_state) >= me["stack"]:
+                my_bet = bet_needed
+                print('Calling pre-flop (dying)')
             else:
                 print("Folding pre-flop")
         else:
