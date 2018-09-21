@@ -100,6 +100,32 @@ class Player:
 
         return probabilities[rank_id]
 
+    def get_numeric_value_of_card(self, card):
+        """Get value of card
+
+        >>> Player().get_numeric_value_of_card({"rank": "4"})
+        4
+        >>> Player().get_numeric_value_of_card({"rank": "A"})
+        14
+        >>> Player().get_numeric_value_of_card({"rank": "Q"})
+        12
+        """
+        try:
+            return int(card["rank"])
+        except ValueError as e:
+            values = {
+                "J": 11,
+                "Q": 12,
+                "K": 13,
+                "A": 14
+            }
+            return values[card["rank"]]
+
     def showdown(self, game_state):
         pass
 
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
