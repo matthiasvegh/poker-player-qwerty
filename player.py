@@ -83,7 +83,7 @@ class Player:
             5: 1/(1+508),   # Flush
             6: 1/(1+693),   # Full House
             7: 1/(1+4165),  # Four of a kind
-            8: 1/(1+72192) # Straight Flush
+            8: 1/(1+72192)  # Straight Flush
         }
 
         return probabilities[rank_id]
