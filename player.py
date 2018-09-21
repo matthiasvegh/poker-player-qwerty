@@ -37,18 +37,19 @@ class Player:
 
 
         my_bet = 0
+        bet_needed = current_buy_in - me["bet"]
 
         if len(self.get_communal_cards(game_state)) == 0:
             if self.have_one_pair(game_state):
-                my_bet = current_buy_in - me["bet"]
+                my_bet = bet_needed
         else:
             ranking = self.get_cards_ranking(game_state)
             if ranking["rank"] > 4:
                 my_bet = me.stack
             if ranking["rank"] > 2:
                 my_bet = int(me.stack / 2)
-            elif ranking["rank"] > 0:
-                my_bet = current_buy_in - me["bet"]
+            if my_bet < bet_needed:
+                my_bet = bet_needed
 
         print("My bet: %d" % (my_bet))
 
