@@ -37,7 +37,6 @@ class Player:
         current_buy_in = game_state["current_buy_in"]
         me = game_state["players"][game_state["in_action"]]
 
-        self.log(game_state)
         if self.have_one_pair(game_state):
             print("have one pair")
             print("current probability: ", self.get_probability_of_hand(1))
