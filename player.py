@@ -38,11 +38,13 @@ class Player:
 
         my_bet = 0
 
-        ranking = self.get_cards_ranking(game_state)
         if len(self.get_communal_cards(game_state)) == 0:
-            my_bet = current_buy_in - me["bet"]
-        elif ranking['rank'] > 0:
-            my_bet = current_buy_in - me["bet"]
+            if self.have_one_pair(game_state):
+                my_bet = current_buy_in - me["bet"]
+        else:
+            ranking = self.get_cards_ranking(game_state)
+            if ranking["rank"] > 0:
+                my_bet = current_buy_in - me["bet"]
 
         print("My bet: %d" % (my_bet))
 
