@@ -65,9 +65,9 @@ class Player:
             table_rank = self.get_estimated_table_rank(game_state)
             rank = hand_rank - table_rank
 
-            if rank > 4:
+            if rank > 3:
                 my_bet = me["stack"]
-            elif rank > 2:
+            elif rank > 1:
                 my_bet = int(me["stack"] / 2)
             elif rank > 0:
                 my_bet = 1
