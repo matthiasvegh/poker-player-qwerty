@@ -49,6 +49,9 @@ class Player:
 
         return False
 
+    def have_royal_flush(self, game_state):
+        return False
+
     def showdown(self, game_state):
         pass
 
